@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2")
 
 //variable definition
 let player = {
@@ -5,7 +6,7 @@ let player = {
     totalSpent: 0,
     totalOwned: 0,
     careerTotal: 0,
-    multiplyer: 1,
+    Multiplier: 1,
     automaticMultiplyer: 0,
     upgrades: [
         {
@@ -44,15 +45,18 @@ let player = {
             qty: 0
         }
     ],
-    acheivements: []
-}
+    acheivements: [
+        {
+            title: 'Clicker',
+            desc: 'click 20 times',
+            condition: player.totalClicks >= 20
+        }
 
-let acheivements = {
-    clicker: {
-        title: 'Clicker',
-        desc: 'click 20 times'
-    }
+    ]
 }
+let cooldown = false
+const cooldownPeriod = 75
+
 
 
 
@@ -61,10 +65,13 @@ let acheiveInterval
 
 //increment functions
 function mine() {
-    player.totalClicks++
-    player.totalOwned += 1 * player.multiplyer
-    player.careerTotal += 1 * player.multiplyer
-    updateTotal()
+    if (!cooldown) {
+        startCooldown()
+        player.totalClicks++
+        player.totalOwned += 1 * player.Multiplier
+        player.careerTotal += 1 * player.Multiplier
+        updateTotal()
+    }
 }
 function auto() {
     player.totalOwned += player.automaticMultiplyer
@@ -87,7 +94,7 @@ function buyUpgrade(id) {
             player.automaticMultiplyer += upgrade.multiplyerIncrement
             updateAuto()
         } else {
-            player.multiplyer += upgrade.multiplyerIncrement
+            player.Multiplier += upgrade.multiplyerIncrement
         }
         console.log(player.totalOwned, upgrade)
         updateTotal()
@@ -102,13 +109,13 @@ function updatePrice(id) {
     upgrade.price += Math.floor(upgrade.price * .25)
 }
 function updateAuto() {
-    autoInterval = setInterval(auto, 000)
+    autoInterval = setInterval(auto, 3000)
 }
 
 
 //draw functions
 function drawMultiplyers() {
-    document.getElementById('click-multi').innerText = player.multiplyer
+    document.getElementById('click-multi').innerText = player.Multiplier
     document.getElementById('auto-multi').innerText = player.automaticMultiplyer
 }
 function drawUpgrades() {
@@ -132,7 +139,20 @@ function findUpgrade(id) {
     return player.upgrades.find(u => u.id === id)
 }
 
+
+//uncatagorized
+function startCooldown() {
+    cooldown = true
+    setTimeout(function () { cooldown = false }, cooldownPeriod)
+}
+
 //default function calls
 updateAuto()
 drawMultiplyers()
+Swal.fire({
+    title: 'Error!',
+    text: 'Do you want to continue',
+    icon: 'error',
+    confirmButtonText: 'Cool'
+})
 
