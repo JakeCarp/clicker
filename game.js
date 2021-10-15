@@ -1,3 +1,4 @@
+
 //variable definition
 let player = {
     totalClicks: 0,
@@ -134,3 +135,4 @@ function findUpgrade(id) {
 //default function calls
 updateAuto()
 drawMultiplyers()
+
