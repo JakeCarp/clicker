@@ -1,4 +1,4 @@
-const { default: Swal } = require("sweetalert2")
+
 
 //variable definition
 let player = {
@@ -45,15 +45,55 @@ let player = {
             qty: 0
         }
     ],
-    acheivements: [
-        {
-            title: 'Clicker',
-            desc: 'click 20 times',
-            condition: player.totalClicks >= 20
-        }
-
-    ]
+    acheivements: []
 }
+let acheivements = [
+    {
+        title: 'Clicker',
+        desc: 'take your first click',
+        condition: player.totalClicks >= 1
+    },
+    {
+        title: 'Millionaire',
+        desc: 'got your first million',
+        condition: player.totalClicks >= 1e6
+    },
+    {
+        title: 'Billionaire',
+        desc: 'have 1 billion',
+        condition: player.totalClicks >= 1e9
+    },
+    {
+        title: 'Trilionaire',
+        desc: 'This is getting out of hand',
+        condition: player.totalClicks >= 1e12
+    },
+    {
+        title: 'Decadilionaire',
+        desc: 'Nothing can stop you now',
+        condition: player.totalClicks >= 20
+    },
+    {
+        title: 'Clicker',
+        desc: 'take your first click',
+        condition: player.totalClicks >= 15
+    },
+    {
+        title: 'Clicker',
+        desc: 'take your first click',
+        condition: player.totalClicks >= 10
+    },
+    {
+        title: 'Clicker',
+        desc: 'take your first click',
+        condition: player.totalClicks >= 5
+    },
+    {
+        title: 'Clicker',
+        desc: 'take your first click',
+        condition: player.totalClicks >= 2
+    }
+]
 let cooldown = false
 const cooldownPeriod = 75
 
@@ -77,6 +117,15 @@ function auto() {
     player.totalOwned += player.automaticMultiplyer
     player.careerTotal += player.automaticMultiplyer
     updateTotal()
+}
+function pushAcheivement() {
+    acheivements.forEach(a => {
+        if (a.condition) {
+            acheivements = acheivements.filter(ach => !ach.condition)
+            player.acheivements.push(a)
+            window.alert(`${a.title} - ${a.desc}`)
+        }
+    })
 }
 
 //update functions
@@ -111,7 +160,9 @@ function updatePrice(id) {
 function updateAuto() {
     autoInterval = setInterval(auto, 3000)
 }
-
+function updateAcheivements() {
+    acheiveInterval = setInterval(pushAcheivement, 500)
+}
 
 //draw functions
 function drawMultiplyers() {
@@ -148,11 +199,7 @@ function startCooldown() {
 
 //default function calls
 updateAuto()
+updateAcheivements()
 drawMultiplyers()
-Swal.fire({
-    title: 'Error!',
-    text: 'Do you want to continue',
-    icon: 'error',
-    confirmButtonText: 'Cool'
-})
+
 
