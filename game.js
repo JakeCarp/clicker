@@ -1,5 +1,7 @@
 //variable definition
 let player = {
+    totalClicks: 0,
+    totalSpent: 0,
     totalOwned: 0,
     careerTotal: 0,
     multiplyer: 1,
@@ -40,17 +42,25 @@ let player = {
             multiplyerIncrement: 10,
             qty: 0
         }
-    ]
+    ],
+    acheivements: []
 }
+
+let acheivements = {
+    clicker: {
+        title: 'Clicker',
+        desc: 'click 20 times'
+    }
+}
+
+
+
 let autoInterval
-
-
-
-
-
+let acheiveInterval
 
 //increment functions
 function mine() {
+    player.totalClicks++
     player.totalOwned += 1 * player.multiplyer
     player.careerTotal += 1 * player.multiplyer
     updateTotal()
@@ -68,7 +78,7 @@ function updateTotal() {
 function buyUpgrade(id) {
     let upgrade = findUpgrade(id)
     if (player.totalOwned >= upgrade.price) {
-
+        player.totalSpent += upgrade.price
         player.totalOwned -= upgrade.price
         upgrade.qty++
         updatePrice(id)
@@ -94,6 +104,7 @@ function updateAuto() {
     autoInterval = setInterval(auto, 000)
 }
 
+
 //draw functions
 function drawMultiplyers() {
     document.getElementById('click-multi').innerText = player.multiplyer
@@ -107,7 +118,12 @@ function drawUpgrades() {
         `
     })
 
-    document.getElementById('upgrade-container').innerHTML = template
+    document.getElementById('store-menu').innerHTML = template
+}
+function drawStats() {
+    document.getElementById('total-earned').innerText = player.careerTotal
+    document.getElementById('total-spent').innerText = player.totalSpent
+    document.getElementById('total-clicks').innerText = player.totalClicks
 }
 
 //find functions
@@ -118,4 +134,3 @@ function findUpgrade(id) {
 //default function calls
 updateAuto()
 drawMultiplyers()
-drawUpgrades()

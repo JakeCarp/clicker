@@ -6,6 +6,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="sweetalert2.min.css">
     <!-- Bootstrap CSS v5.0.2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -13,18 +15,79 @@
 </head>
 
 <body>
-    <header class="container-fluid text-center">
-        <h1>Clicker</h1>
+    <header class="container-fluid text-center sticky-top">
+        <div class="d-flex flex-column">
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">CLICKER GAME</a>
+                    <button onclick="drawUpgrades()" class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasStore" aria-controls="offcanvasNavbar">
+                        Store
+                    </button>
+                    <button onclick="drawStats()" class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasStats" aria-controls="offcanvasNavbar">
+                        Stats
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasMenu" aria-controls="offcanvasNavbar">
+                        Menu
+                    </button>
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasStore"
+                        aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Store</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div id="store-menu"></div>
+                        </div>
+                    </div>
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasStats"
+                        aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Stats</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div>Total Earned: <span id="total-earned"></span></div>
+                            <div>Total Spent: </div><span id="total-spent"></span>
+                        </div>
+                        <div>Total Clicks: <span id="total-clicks"></span></div>
+                    </div>
+                </div>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                    </div>
+                </div>
+        </div>
+        </nav>
+        </div>
     </header>
     <main class="container-fluid">
         <div class="row">
-            <div class="col">
+            <div class="col-md-8">
+                <h2>UPGRADES VISUALIZE HERE</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
                 <h3>Total: <span id="mine-total">0</span></h3>
                 <h3>Click Multiplyer: <span id="click-multi">0</span></h3>
                 <h3>Auto Rate: <span id="auto-multi">0</span></h3>
             </div>
-            <div class="col">
+            <div class="col-4">
                 <img onclick="mine()" src="https://via.placeholder.com/150" alt="">
+            </div>
+            <div class="col-4">
+                <h3>Blah</h3>
             </div>
         </div>
         <div class="row">
@@ -43,6 +106,7 @@
 
 
     <script src="game.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
