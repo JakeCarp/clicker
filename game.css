@@ -6,7 +6,11 @@ body {
 main {
     flex-grow: 1;
 }
-
+.bg-hero{
+    background-image: url('./assets/tumblr_nlgvixBTi01t2bm5ao1_500.gif');
+    background-position: center;
+    background-size: contain;
+}
 .navbar-toggler:focus{
     box-shadow: none !important;
 
