@@ -79,7 +79,7 @@ let acheivements = [
         condition: player.totalClicks >= 15
     },
     {
-        title: 'Clicker',
+        title: 'Some clicks',
         desc: 'take your first click',
         condition: player.totalClicks >= 10
     },
